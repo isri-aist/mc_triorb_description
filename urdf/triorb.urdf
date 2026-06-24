@@ -1,9 +1,41 @@
 <?xml version="1.0"?>
 <robot name="triorb">
 
+  <!-- World -->
+  <link name="world"/>
+
+  <!-- X translation -->
+  <link name="base_x_link"/>
+  <joint name="base_x" type="prismatic">
+    <parent link="world"/>
+    <child link="base_x_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1000" upper="1000" effort="1000" velocity="10"/>
+  </joint>
+
+  <!-- Y translation -->
+  <link name="base_y_link"/>
+  <joint name="base_y" type="prismatic">
+    <parent link="base_x_link"/>
+    <child link="base_y_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1000" upper="1000" effort="1000" velocity="10"/>
+  </joint>
+
+  <!-- Yaw rotation -->
+  <link name="base_yaw_link"/>
+  <joint name="base_yaw" type="continuous">
+    <parent link="base_y_link"/>
+    <child link="base_yaw_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- Actual robot base -->
   <link name="base">
 
-    <!-- Inertial properties -->
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.1"/>
@@ -13,7 +45,6 @@
         izz="1.0"/>
     </inertial>
 
-    <!-- Visual geometry -->
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -24,7 +55,6 @@
       </material>
     </visual>
 
-    <!-- Collision geometry -->
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -34,10 +64,16 @@
 
   </link>
 
-  <!-- Mount link -->
-  <link name="mount">
+  <!-- Attach base to yaw frame -->
+  <joint name="base_mount_joint" type="fixed">
+    <parent link="base_yaw_link"/>
+    <child link="base"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
 
-  <!-- Fixed transform from base to mount -->
+  <!-- Mount link -->
+  <link name="mount"/>
+
   <joint name="base_to_mount" type="fixed">
     <parent link="base"/>
     <child link="mount"/>
