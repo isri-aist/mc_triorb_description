@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <robot name="triorb">
 
-  <!-- World -->
-  <link name="world"/>
+  <!-- odom -->
+  <link name="odom"/>
 
   <!-- X translation -->
   <link name="base_x_link"/>
   <joint name="base_x" type="prismatic">
-    <parent link="world"/>
+    <parent link="odom"/>
     <child link="base_x_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <axis xyz="1 0 0"/>
