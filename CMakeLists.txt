@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.22)
 cmake_policy(SET CMP0048 NEW)
 project(mc_triorb_description VERSION 1.0.0)
 
@@ -18,6 +18,8 @@ if(NOT DISABLE_ROS)
 else()
   set(ROS_VERSION 0)
 endif()
+
+install(DIRECTORY rsdf DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME}")
 
 if(${ROS_VERSION} EQUAL 1)
   catkin_package()
@@ -45,6 +47,7 @@ else()
 endif()
 
 install(DIRECTORY urdf/ DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf)
+install(DIRECTORY rsdf/ DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/rsdf)
 
 if(${ROS_VERSION} EQUAL 2)
   ament_package(CONFIG_EXTRAS cmake/mc_triorb_description_INSTALL_PREFIX.cmake)

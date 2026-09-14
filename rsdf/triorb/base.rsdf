@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+
+<robot name="triorb">
+  <planar_surface name="Base" link="base_x_link">
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.6" />
+    <points>
+      <point xy="-0.0745 -0.0745" />
+      <point xy="0.0745 -0.0745" />
+      <point xy="0.0745 0.0745" />
+      <point xy="-0.0745 0.0745" />
+    </points>
+    <material name="plastic" />
+  </planar_surface>
+</robot>
